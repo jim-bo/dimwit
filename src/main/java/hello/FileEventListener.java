@@ -1,10 +1,18 @@
 package hello;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
+import org.springframework.stereotype.Component;
+
 import com.mongodb.DBObject;
 
+@Component
 public class FileEventListener extends AbstractMongoEventListener<File> {
 
+    @Autowired
+    private MongoOperations mongoOperations;
+	
     @Override
     public void onBeforeConvert(File file) {
 
@@ -12,7 +20,7 @@ public class FileEventListener extends AbstractMongoEventListener<File> {
 
     @Override
     public void onBeforeSave(File file, DBObject dbo) {
-    	file.setName(file.getName() + "_cheese");
+    	dbo.put("name", file.getName() + "_cheese");
     }
 
     @Override
