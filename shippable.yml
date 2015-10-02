@@ -1,0 +1,7 @@
+# language setting
+language: java
+
+# version numbers.
+java:
+	- 1.8
+
